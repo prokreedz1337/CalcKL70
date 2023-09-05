@@ -1,0 +1,76 @@
+Private Sub UserForm_Initialize()
+ComboBox1.Enabled = True
+ComboBox1.AddItem "10000"
+ComboBox1.AddItem "5000"
+ComboBox1.AddItem "1000"
+ComboBox1.AddItem "500"
+End Sub
+
+Private Sub cmdCalcular_Click()
+
+'Declaração de variáveis
+Dim A As Double
+Dim B As Double
+Dim C As Double
+Dim D As Double
+
+'Atribuição de valores
+VA = Val(txtVA.Text)
+Me.txtVA = Replace(Me.txtVA, ",", ".")
+If Not IsNumeric(txtVA.Text) Then txtVA.Text = Empty
+VC = Val(txtVC.Text)
+A = Val(txtVC.Text) - Val(txtVA.Text)
+B = Val(ComboBox1.Value)
+
+If CheckBox1.Value = True Then
+C = 100
+ElseIf CheckBox2.Value = True Then
+C = 58
+End If
+
+
+'Cálculo da regra de 3
+D = (B * C) / A
+
+
+'Exibição do resultado
+txtD.Text = D
+txtD.MaxLength = 6
+Me.txtD.Text = Format(Me.txtD.Text, "#,##0")
+
+End Sub
+
+Private Sub checkbox1_Click()
+
+If CheckBox1.Value = True Then
+CheckBox2.Value = False
+ComboBox1.Enabled = True
+ComboBox1.Text = "5000"
+End If
+
+cmdCalcular_Click
+
+End Sub
+
+Private Sub checkbox2_Click()
+
+If CheckBox2.Value = True Then
+CheckBox1.Value = False
+ComboBox1.Enabled = True
+End If
+
+cmdCalcular_Click
+
+End Sub
+
+Private Sub txtVA_Change()
+cmdCalcular_Click
+End Sub
+
+Private Sub txtVC_Change()
+cmdCalcular_Click
+End Sub
+
+Private Sub ComboBox1_Change()
+cmdCalcular_Click
+End Sub
